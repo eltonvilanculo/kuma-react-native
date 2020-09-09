@@ -33,14 +33,18 @@ const Stack = createStackNavigator() ;
 
 const App: () => React$Node = () => {
   return (<NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator
+    >
       <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
+          options={{headerShown: false}}
+          header='none'
       />
       <Stack.Screen
           name="MainScreen"
           component={MainScreen}
+          options={{headerShown: true}}
       />
       <Stack.Screen
           name="DetailScreen"

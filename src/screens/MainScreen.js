@@ -1,18 +1,28 @@
 import React from 'react'
-import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    StatusBar,
-} from 'react-native';
+
+import { Container, Header, Item, Input, Icon, Button, Text } from 'native-base';
 
 export default class MainScreen extends React.Component{
 
 
     render() {
-        return(<View><Text>MainScreen</Text></View>)
+        return(
+
+            <Container>
+                <Header searchBar rounded>
+                    <Item>
+                        <Icon name="ios-search" />
+                        <Input placeholder="Search" />
+                        <Icon name="ios-people" />
+                    </Item>
+                    <Button transparent>
+                        <Text>Search</Text>
+                    </Button>
+                </Header>
+            </Container>
+
+
+       )
     }
 
 }
