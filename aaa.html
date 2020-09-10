@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+</head>
+<body>
+      <p id="words"></p>
+        
+        <script>
+                const rt = document.getElementById("words")
+                fetch("http://localhost:3000/meaning")
+                .then(result => result.json())
+                .then((result2) => {
+                        const array = result2
+                        array.forEach((iten)=>{
+                                rt.innerHTML +=  iten.description + "<br>";
+                        })
+                } )
+                .catch(error => console.log(error))
+        </script>
+</body>
+</html>
