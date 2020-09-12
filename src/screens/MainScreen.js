@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Alert, StyleSheet } from 'react-native';
 
 import { Container, Header, Item, Input, Icon, Button, Text, Content, List, ListItem, Left, Right } from 'native-base';
+import DetailScreen from './DetailScreen';
 export default class MainScreen extends Component {
 
     constructor(props) {
@@ -12,6 +13,12 @@ export default class MainScreen extends Component {
             wordList: [],
             isLoading: true
         }
+    }
+    handleScreen = (id) => {
+
+        console.log(id)
+        this.props.navigation.navigate('DetailScreen')
+
     }
     componentDidMount() {
 
@@ -29,6 +36,7 @@ export default class MainScreen extends Component {
     }
 
     render() {
+        console.log(this.props.navigation)
         const { isLoading, wordList } = this.state;
         console.log('render', isLoading)
         if (isLoading) {
@@ -62,7 +70,8 @@ export default class MainScreen extends Component {
                     </Header>
                     <Content>
                         <List style={descriptStyle.list}>
-                            {wordList.map(word => (<ListItem key={word.id}>
+                            {wordList.map(word => (<ListItem onPress={() => { this.handleScreen(word.id) }}
+                                key={word.id}>
                                 <Left style={descriptStyle.description}>
                                     <Text > {word.ronga + "\n"}</Text>
                                     <Text note>{word.port}</Text>
