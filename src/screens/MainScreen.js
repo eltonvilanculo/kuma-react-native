@@ -5,13 +5,20 @@ import { ActivityIndicator, Alert, StyleSheet } from 'react-native';
 
 import { Container, Header, Item, Input, Icon, Button, Text, Content, List, ListItem, Left, Right } from 'native-base';
 import DetailScreen from './DetailScreen';
+
 export default class MainScreen extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             wordList: [],
-            isLoading: true
+            isLoading: true,
+            error:null ,
+            pilotWords: [
+                'dia',
+                'tarde',
+                'noite',
+            ],
         }
     }
     handleScreen = (id) => {
@@ -32,15 +39,30 @@ export default class MainScreen extends Component {
 
                 })
             })
-            .catch(error => console.log(error))
+            .catch((error) => {
+                this.setState({error:error})
+
+            })
     }
 
     render() {
-        console.log(this.props.navigation)
-        const { isLoading, wordList } = this.state;
-        console.log('render', isLoading)
+        console.log('navigation TAG',this.props.navigation)
+        const { isLoading, wordList ,error } = this.state;
+         if(error){
+
+            return (
+                <Container>
+                    <Content>
+                        <Text bold style={{color:'blue' , fontWeight:'bold' ,  fontSize:24 }}  onPress={()=>this.props.navigation.navigate('DetailScreen' ,{data:this.state.pilotWords})}>
+                            {JSON.stringify(`Boss como correr a App sem a API haaaaa ${error}`)}
+                        </Text>
+                    </Content>
+                </Container>
+           ) ;
+        }
         if (isLoading) {
-            console.log('loading')
+
+
             return (
                 <Container>
                     <Header searchBar rounded>
@@ -49,13 +71,15 @@ export default class MainScreen extends Component {
                             <Input placeholder="Pesquisar" />
                         </Item>
                         <Button transparent>
-                            <Text>Pesquisar</Text>
+                            <Text>error</Text>
                         </Button>
                     </Header>
-                    <Content><ActivityIndicator color='blue' /></Content>
+                    <Content><ActivityIndicator color='blue' size='large' /></Content>
                 </Container>
             )
-        } else {
+        }
+
+        else {
             console.log('not loading', wordList)
             return (
                 <Container>

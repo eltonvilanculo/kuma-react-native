@@ -18,23 +18,24 @@ import {
 } from 'react-native';
 
 import {
-  Header,
-  LearnMoreLinks,
+
   Colors,
-  DebugInstructions,
-  ReloadInstructions,
+
 } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SplashScreen from "./src/screens/SplashScreen";
 import MainScreen from "./src/screens/MainScreen";
 import DetailScreen from "./src/screens/DetailScreen";
+
+
 const Stack = createStackNavigator() ;
 
 const App: () => React$Node = () => {
-  return (<NavigationContainer>
-    <Stack.Navigator
-    >
+  return (
+
+      <NavigationContainer>
+    <Stack.Navigator>
       <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
@@ -51,7 +52,9 @@ const App: () => React$Node = () => {
           component={DetailScreen}
       />
     </Stack.Navigator>
-  </NavigationContainer>)
+  </NavigationContainer>
+
+  )
 };
 
 const styles = StyleSheet.create({

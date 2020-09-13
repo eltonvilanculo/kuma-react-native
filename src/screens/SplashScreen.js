@@ -60,7 +60,7 @@ export default class SplashScreen extends React.Component{
                     )
         }
 
-        return (<MainScreen />)
+        return (<MainScreen navigation = {this.props.navigation} />)
 
 
     }
