@@ -89,9 +89,6 @@ const styles = StyleSheet.create({
         fontSize:52 ,
         marginLeft:'35%'
 
-
-
-
     }
 
 })
