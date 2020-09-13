@@ -9,6 +9,7 @@ import {
     Button ,
     ActivityIndicator
 } from 'react-native';
+
 import MainScreen from "./MainScreen";
 
 export default class SplashScreen extends React.Component{
@@ -65,6 +66,9 @@ export default class SplashScreen extends React.Component{
     }
 
 }
+
+
+
 
 const styles = StyleSheet.create({
     container: {
