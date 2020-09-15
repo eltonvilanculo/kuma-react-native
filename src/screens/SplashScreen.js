@@ -31,7 +31,7 @@ export default class SplashScreen extends React.Component{
 
        const checkStatus = ()=> {
          console.log('once again')
-            if(++retry > 4) {
+            if(++retry > 3) {
                 console.log(retry)
                 clearTimeout(id);
                 this.setState({

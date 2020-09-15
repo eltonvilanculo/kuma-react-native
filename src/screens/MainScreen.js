@@ -5,6 +5,7 @@ import { ActivityIndicator, Alert, StyleSheet } from 'react-native';
 
 import { Container, Header, Item, Input, Icon, Button, Text, Content, List, ListItem, Left, Right } from 'native-base';
 import DetailScreen from './DetailScreen';
+import ListSimpleItem from '../components/ListSimpleItem';
 
 export default class MainScreen extends Component {
 
@@ -26,6 +27,9 @@ export default class MainScreen extends Component {
         console.log(id)
         this.props.navigation.navigate('DetailScreen')
 
+    }
+    handleItemClicked = ()=> {
+        alert('clicked')
     }
     componentDidMount() {
 
@@ -56,6 +60,9 @@ export default class MainScreen extends Component {
                         <Text bold style={{color:'blue' , fontWeight:'bold' ,  fontSize:24 }}  onPress={()=>this.props.navigation.navigate('DetailScreen' ,{data:this.state.pilotWords})}>
                             {JSON.stringify(`Boss como correr a App sem a API haaaaa ${error}`)}
                         </Text>
+                        <List>
+                        <ListSimpleItem wordWronga="my word" click={this.handleItemClicked}/>
+                       </List>
                     </Content>
                 </Container>
            ) ;
