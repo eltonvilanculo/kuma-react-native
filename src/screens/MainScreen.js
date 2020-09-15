@@ -6,11 +6,13 @@ import { ActivityIndicator, Alert, StyleSheet } from 'react-native';
 import { Container, Header, Item, Input, Icon, Button, Text, Content, List, ListItem, Left, Right } from 'native-base';
 import DetailScreen from './DetailScreen';
 import ListSimpleItem from '../components/ListSimpleItem';
+import faker from 'faker'
 
 export default class MainScreen extends Component {
 
     constructor(props) {
         super(props)
+        const wordResultAux =[] ; 
         this.state = {
             wordList: [],
             isLoading: true,
@@ -20,6 +22,7 @@ export default class MainScreen extends Component {
                 'tarde',
                 'noite',
             ],
+            value:'',
         }
     }
     handleScreen = (id) => {
@@ -28,8 +31,29 @@ export default class MainScreen extends Component {
         this.props.navigation.navigate('DetailScreen')
 
     }
+    
     handleItemClicked = ()=> {
         alert('clicked')
+    }
+
+
+    handleIput=(e)=>{
+        
+    //    console.log('writing',e)
+       this.setState({value:e})
+       this.setState({wordList:this.checkWords(e)})
+       console.log('wordList -> ' ,this.state.wordList)
+    //   console.log('result search ->',this.checkWords(e)) 
+
+    }
+
+    checkWords(word){
+
+        // const array =  this.state.wordList ; 
+        // const array =  ['a' ,'asas' , 'vddd' , 'www' , 'ssss' , 'wert'] ; 
+
+        return this.wordResultAux.filter(searchResut=>searchResut.port.toLowerCase().indexOf(word.toLowerCase()) > -1)
+
     }
     componentDidMount() {
 
@@ -44,24 +68,53 @@ export default class MainScreen extends Component {
                 })
             })
             .catch((error) => {
-                this.setState({error:error})
+             
+                const myDemoList = []
+                for(let i=0; i<10 ; i++){
+                    myDemoList[i] = 
+                        {
+                            id:faker.random.uuid(),
+                            ronga:faker.random.word(),
+                            port:faker.random.word()
+                        }
+                    }
 
-            })
+                    this.setState({error:error , wordList:myDemoList})
+                    this.wordResultAux = myDemoList ; 
+                   
+                }
+             
+         )
     }
 
+
     render() {
-        console.log('navigation TAG',this.props.navigation)
+        // console.log('navigation TAG',this.props.navigation)
         const { isLoading, wordList ,error } = this.state;
          if(error){
 
+            // console.log('wordErrorList',wordList)
             return (
+
                 <Container>
+                       <Header searchBar rounded>
+                        <Item>
+                            <Icon name="ios-search" />
+                            <Input placeholder="Pesquisar" onChangeText={this.handleIput} value={this.state.value}/>
+                        </Item>
+                        <Button transparent>
+                            <Text>error</Text>
+                        </Button>
+                    </Header>
                     <Content>
                         <Text bold style={{color:'blue' , fontWeight:'bold' ,  fontSize:24 }}  onPress={()=>this.props.navigation.navigate('DetailScreen' ,{data:this.state.pilotWords})}>
                             {JSON.stringify(`Boss como correr a App sem a API haaaaa ${error}`)}
                         </Text>
                         <List>
-                        <ListSimpleItem wordWronga="my word" click={this.handleItemClicked}/>
+                            
+                            {wordList.map(word=>( <ListSimpleItem id={word.id} wordWronga={word.port} click={this.handleItemClicked}/>))}
+
+                       
                        </List>
                     </Content>
                 </Container>
@@ -87,7 +140,7 @@ export default class MainScreen extends Component {
         }
 
         else {
-            console.log('not loading', wordList)
+            // console.log('not loading', wordList)
             return (
                 <Container>
                     <Header searchBar rounded>
