@@ -8,7 +8,7 @@ import {Icon,Text, Content, List, ListItem, Left, Right } from 'native-base';
   export default  props =>(       
        <Content>
            
-           <ListItem key={props.id} onPress={props.click}>
+           <ListItem key={props.childKey} onPress={props.click}>
                 
                 <Left style={styles.description}>
                   

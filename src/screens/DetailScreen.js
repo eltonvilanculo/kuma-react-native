@@ -22,7 +22,7 @@ export default class DetailScreen extends React.Component{
                     <CardItem>
                         <Body>
                             <Text>
-                                {this.props.route.params.data[1]}
+                                {this.props.route.params.data.port}
                             </Text>
                         </Body>
                     </CardItem>

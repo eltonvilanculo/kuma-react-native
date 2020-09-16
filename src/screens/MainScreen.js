@@ -32,9 +32,6 @@ export default class MainScreen extends Component {
 
     }
     
-    handleItemClicked = ()=> {
-        alert('clicked')
-    }
 
 
     handleIput=(e)=>{
@@ -57,15 +54,14 @@ export default class MainScreen extends Component {
     }
     componentDidMount() {
 
-        fetch("http://localhost:3000/meaning")
+        fetch("http://192.168.0.100:3000/meaning")
             .then(result => result.json())
             .then((result2) => {
                 const array = result2
+                
                 this.setState({ isLoading: false, wordList: array })
-                array.forEach((iten) => {
-
-
-                })
+           
+                this.wordResultAux = result2 ; 
             })
             .catch((error) => {
              
@@ -112,7 +108,7 @@ export default class MainScreen extends Component {
                         </Text>
                         <List>
                             
-                            {wordList.map(word=>( <ListSimpleItem id={word.id} wordWronga={word.port} click={this.handleItemClicked}/>))}
+                            {wordList.map(word=>( <ListSimpleItem id={word.id} wordWronga={word.port} click={()=>{alert('clk')}}/>))}
 
                        
                        </List>
@@ -146,7 +142,7 @@ export default class MainScreen extends Component {
                     <Header searchBar rounded>
                         <Item>
                             <Icon name="ios-search" />
-                            <Input placeholder="Pesquisar" />
+                            <Input placeholder="Pesquisar" placeholder="Pesquisar" onChangeText={this.handleIput} value={this.state.value}/>
                         </Item>
                         <Button transparent>
                             <Text>Pesquisar</Text>
@@ -154,19 +150,23 @@ export default class MainScreen extends Component {
                     </Header>
                     <Content>
                         <List style={descriptStyle.list}>
-                            {wordList.map(word => (<ListItem onPress={() => { this.handleScreen(word.id) }}
-                                key={word.id}>
-                                <Left style={descriptStyle.description}>
-                                    <Text > {word.ronga + "\n"}</Text>
-                                    <Text note>{word.port}</Text>
-                                </Left>
 
-                                <Right style={descriptStyle.btnR}>
-                                    <Icon name="arrow-forward" />
-                                </Right>
 
-                            </ListItem>
-                            ))}
+                            {/* <Text onPress={()=>{this.props.navigation.navigate('DetailScreen')}}>a</Text> */}
+                        {wordList.map(word=>( 
+           <ListItem key={word.id} onPress={()=>{this.props.navigation.navigate('DetailScreen',{data:word})}}>
+                
+                <Left >
+                  
+                    <Text > {word.port}</Text>
+                    {/* <Text note>{props.wordPt}</Text>  */}
+                </Left>
+
+                <Right>
+                    <Icon name="arrow-forward" />
+                </Right>
+
+            </ListItem> ))}
 
                         </List>
                     </Content>
